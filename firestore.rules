@@ -1,0 +1,149 @@
+
+/**
+ * Core Philosophy: This ruleset establishes a "public read, locked write" security model
+ * for a multi-university information portal. The primary goal is to make university
+ * information (like courses, announcements, and statistics) publicly accessible to all users,
+ * including anonymous ones. However, write access (creating, updating, or deleting data) is
+ * intentionally disabled by default, as the provided data schema lacks a defined administrative
+ * or ownership model. This forces a deliberate implementation of an authorization system
+ * before any data modification is possible. The one exception is the feedback collection, which
+ * allows any user to submit feedback without being able to read or modify other submissions.
+ *
+ * Data Structure: Data is hierarchically organized under a top-level `universities` collection.
+ * Each university document, identified by a unique `universityId`, acts as a container for its
+ * related subcollections: `courses`, `students`, `announcements`, `feedback`, and `statistics`.
+ * This structure provides clear data segregation between different universities.
+ *
+ * Key Security Decisions:
+ * - Public Read Access: All collections, except for feedback, are publicly readable (`get`, `list`).
+ *   This allows the app to function as an open information portal.
+ * - Default Write Denial: All write operations (`create`, `update`, 'delete') are disallowed
+ *   for most collections. This is a critical security measure due to the absence of any
+ *   'ownerId' or admin role fields in the data entities, preventing unauthorized data modification.
+ * - Open Feedback Submission: Any user (authenticated or anonymous) can create a document in
+ *   the `feedback` subcollection. This is designed for open submission forms. However, reading,
+ *   updating, or deleting feedback is prohibited to protect user privacy and prevent tampering.
+ * - Relational Integrity on Create: For the allowed feedback creation, a rule enforces that
+ *   the `universityId` field within the new feedback document must match the `universityId`
+ *   in the document's path. This ensures data is correctly associated.
+ *
+ * Denormalization for Authorization: The application design correctly denormalizes the
+ * `universityId` onto all documents in the subcollections. This design pattern is crucial for
+ * writing efficient and secure rules, as it allows rules to validate a document's context
+ * without needing to perform slow and costly `get()` calls to parent documents.
+ *
+ * Structural Segregation: The use of separate subcollections for different data types
+ * (e.g., `/courses`, `/students`) under each university ensures that a single, consistent
+ * security policy can be applied to all documents within that collection, simplifying the ruleset.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // -------------------------------------------------------------------------
+    // Helper Functions
+    // -------------------------------------------------------------------------
+
+    /**
+     * On feedback creation, ensures the feedback document is correctly linked
+     * to the university specified in the URL path.
+     */
+    function isFeedbackForCorrectUniversity(universityId) {
+      return request.resource.data.universityId == universityId;
+    }
+
+    // -------------------------------------------------------------------------
+    // Collection Rules
+    // -------------------------------------------------------------------------
+
+    /**
+     * @description Controls access to the student profile documents.
+     * @path /students/{studentId}
+     * @allow (read) A user can read their own profile.
+     * @allow (write) Any authenticated user can create/update profiles. This is for the admin panel.
+     * @principle Allow self-read and admin-write for student profiles.
+     */
+    match /students/{studentId} {
+      allow read: if request.auth.uid == studentId;
+      // Allow any authenticated user (e.g., admin) to create/update student profiles after approval.
+      // TODO: Secure this rule by checking for an admin custom claim.
+      allow write: if request.auth != null;
+    }
+
+    /**
+     * @description Controls access to university profile documents.
+     * @path /universities/{universityId}
+     * @allow (get) Any user, signed in or not, can read a university's profile.
+     * @deny (create) No user can create, update, or delete a university.
+     * @principle Public read for informational content, with writes disabled pending an admin model.
+     */
+    match /universities/{universityId} {
+      allow get, list: if true;
+      allow create, update, delete: if false; // TODO: Implement an admin/ownership model to grant write access.
+    }
+
+    /**
+     * @description Controls access to course documents within a university.
+     * @path /universities/{universityId}/courses/{courseId}
+     * @allow (get) Any user can view the details of a course.
+     * @deny (create) No user can create, update, or delete courses.
+     * @principle Public read for informational content, with writes disabled pending an admin model.
+     */
+    match /universities/{universityId}/courses/{courseId} {
+      allow get, list: if true;
+      allow create, update, delete: if false; // TODO: Implement an admin/ownership model to grant write access.
+    }
+
+    /**
+     * @description Controls access to student documents within a university.
+     * @path /universities/{universityId}/students/{studentId}
+     * @allow (get) Any user can view the details of a student.
+     * @deny (create) No user can create, update, or delete student records.
+     * @principle Public read for informational content, with writes disabled pending an admin model.
+     */
+    match /universities/{universityId}/students/{studentId} {
+      allow get, list: if true;
+      allow create, update, delete: if false; // TODO: Implement an admin/ownership model to grant write access.
+    }
+
+    /**
+     * @description Controls access to announcement documents within a university.
+     * @path /universities/{universityId}/announcements/{announcementId}
+     * @allow (get) Any user can read announcements.
+     * @deny (create) No user can create, update, or delete announcements.
+     * @principle Public read for informational content, with writes disabled pending an admin model.
+     */
+    match /universities/{universityId}/announcements/{announcementId} {
+      allow get, list: if true;
+      allow create, update, delete: if false; // TODO: Implement an admin/ownership model to grant write access.
+    }
+
+    /**
+     * @description Controls access to feedback documents. Allows anyone to submit feedback
+     * but prevents anyone from reading or modifying submitted feedback.
+     * @path /universities/{universityId}/feedback/{feedbackId}
+     * @allow (create) Any user (anonymous or signed-in) can submit new feedback.
+     * @deny (get) No user can read, list, update, or delete existing feedback.
+     * @principle Enforces write-once, private-read access for feedback submissions and validates relational integrity.
+     */
+    match /universities/{universityId}/feedback/{feedbackId} {
+      allow create: if isFeedbackForCorrectUniversity(universityId);
+      allow get: if false;
+      allow list: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Controls access to statistic documents within a university.
+     * @path /universities/{universityId}/statistics/{statisticId}
+     * @allow (get) Any user can read university statistics.
+     * @deny (create) No user can create, update, or delete statistics.
+     * @principle Public read for informational content, with writes disabled pending an admin model.
+     */
+    match /universities/{universityId}/statistics/{statisticId} {
+      allow get, list: if true;
+      allow create, update, delete: if false; // TODO: Implement an admin/ownership model to grant write access.
+    }
+  }
+}

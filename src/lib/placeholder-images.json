@@ -1,0 +1,136 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-image",
+      "description": "University campus building",
+      "imageUrl": "https://images.unsplash.com/photo-1689686610856-3bcf921eb1f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx1bml2ZXJzaXR5JTIwY2FtcHVzfGVufDB8fHx8MTc2ODAyMTIxOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "university campus"
+    },
+    {
+      "id": "course-cs",
+      "description": "Students working on computers",
+      "imageUrl": "https://images.unsplash.com/photo-1569653402334-2e98fbaa80ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb21wdXRlciUyMGxhYnxlbnwwfHx8fDE3Njc5Nzg0MDZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "computer lab"
+    },
+    {
+      "id": "course-ba",
+      "description": "Business meeting",
+      "imageUrl": "https://images.unsplash.com/photo-1709715357520-5e1047a2b691?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMG1lZXRpbmd8ZW58MHx8fHwxNzY3OTg2MDg3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "business meeting"
+    },
+    {
+      "id": "course-me",
+      "description": "Engineering equipment",
+      "imageUrl": "https://images.unsplash.com/photo-1704265586389-32d7fd68e7d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlbmdpbmVlcmluZyUyMG1hY2hpbmVyeXxlbnwwfHx8fDE3NjgwMzU2MjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "engineering machinery"
+    },
+    {
+      "id": "course-psy",
+      "description": "Human brain illustration",
+      "imageUrl": "https://images.unsplash.com/photo-1714925240595-2ca3bebf91cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxicmFpbiUyMGlsbHVzdHJhdGlvbnxlbnwwfHx8fDE3NjgwMDc5NjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "brain illustration"
+    },
+    {
+      "id": "testimonial-1",
+      "description": "Smiling female student",
+      "imageUrl": "https://images.unsplash.com/photo-1568880893176-fb2bdab44e41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzdHVkZW50JTIwcG9ydHJhaXR8ZW58MHx8fHwxNzY3OTU1MDE5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "student portrait"
+    },
+    {
+      "id": "testimonial-2",
+      "description": "Smiling male student",
+      "imageUrl": "https://storage.googleapis.com/aif-stg-request-attachments/users/c303f27f-3151-4048-b4b3-a2673f8832a8/e8c8b185-1d01-4435-862d-0b6156e50e96/e8fd9cfb-81d0-4033-a3b0-642159047976.png",
+      "imageHint": "3d avatar"
+    },
+    {
+      "id": "testimonial-3",
+      "description": "Smiling female student with glasses",
+      "imageUrl": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzdHVkZW50JTIwcG9ydHJhaXR8ZW58MHx8fHwxNzY3OTU1MDE5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "student portrait"
+    },
+    {
+      "id": "about-image",
+      "description": "University library",
+      "imageUrl": "https://images.unsplash.com/photo-1564981797816-1043664bf78d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx1bml2ZXJzaXR5JTIwbGlicmFyeXxlbnwwfHx8fDE3NjgwMjYwNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "university library"
+    },
+    {
+      "id": "contact-map",
+      "description": "Placeholder map of a city",
+      "imageUrl": "https://images.unsplash.com/photo-1730317195705-8a265a59ed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjaXR5JTIwbWFwfGVufDB8fHx8MTc2Nzk3OTgxOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city map"
+    },
+    {
+      "id": "dashboard-profile",
+      "description": "Portrait of a student for dashboard",
+      "imageUrl": "https://images.unsplash.com/photo-1557649662-c9e50cb8a271?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxzdHVkZW50JTIwcHJvZmlsZXxlbnwwfHx8fDE3NjgwMzE4Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "student profile"
+    },
+    {
+      "id": "facilities-campus",
+      "description": "Modern university building with open spaces",
+      "imageUrl": "https://images.unsplash.com/photo-1663062121883-e77f66d2719d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx1bml2ZXJzaXR5JTIwYnVpbGRpbmd8ZW58MHx8fHwxNzY3OTY2MDUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "university building"
+    },
+    {
+      "id": "facilities-green",
+      "description": "Lush green campus area with solar panels",
+      "imageUrl": "https://images.unsplash.com/photo-1764025851527-78f9d7c52bc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxncmVlbiUyMGNhbXB1c3xlbnwwfHx8fDE3NjgwMzkyODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "green campus"
+    },
+    {
+      "id": "facilities-clubs",
+      "description": "Students collaborating in a club meeting",
+      "imageUrl": "https://images.unsplash.com/photo-1728404059704-d4232080b338?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzdHVkZW50JTIwY2x1YnxlbnwwfHx8fDE3NjgwMzkyODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "student club"
+    },
+    {
+      "id": "facilities-innovation",
+      "description": "A modern lab with students working on innovative projects",
+      "imageUrl": "https://images.unsplash.com/photo-1736666835308-27fa97a0d660?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxpbm5vdmF0aW9uJTIwbGFifGVufDB8fHx8MTc2ODAzOTI4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "innovation lab"
+    },
+    {
+      "id": "facilities-consultancy",
+      "description": "A professional meeting discussing a project",
+      "imageUrl": "https://images.unsplash.com/photo-1551836022-aadb801c60ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwcm9mZXNzaW9uYWwlMjBtZWV0aW5nfGVufDB8fHx8MTc2ODAzOTI4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "professional meeting"
+    },
+    {
+      "id": "facilities-events",
+      "description": "A large crowd at a university event or festival",
+      "imageUrl": "https://images.unsplash.com/photo-1759823656568-a13c88f8cf3f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx1bml2ZXJzaXR5JTIwZXZlbnR8ZW58MHx8fHwxNzY4MDM5Mjg3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "university event"
+    },
+    {
+      "id": "founder-image",
+      "description": "3D avatar of a young man",
+      "imageUrl": "https://storage.googleapis.com/aif-stg-request-attachments/users/c303f27f-3151-4048-b4b3-a2673f8832a8/e8c8b185-1d01-4435-862d-0b6156e50e96/e8fd9cfb-81d0-4033-a3b0-642159047976.png",
+      "imageHint": "3d avatar"
+    },
+    {
+      "id": "login-illustration",
+      "description": "An illustration of educational items like books, a computer, and a backpack.",
+      "imageUrl": "https://storage.googleapis.com/aif-stg-testing-global-uploads-prod/users/c303f27f-3151-4048-b4b3-a2673f8832a8/8b045e05-6548-4389-9b93-e02213de3b49/login-illustration.png",
+      "imageHint": "education items"
+    },
+    {
+      "id": "login-character",
+      "description": "A 3D character of a woman pointing towards the login form.",
+      "imageUrl": "https://storage.googleapis.com/aif-stg-testing-global-uploads-prod/users/c303f27f-3151-4048-b4b3-a2673f8832a8/a8f2257f-d5c6-43f1-b952-78152063e18a/login-character.png",
+      "imageHint": "3d woman"
+    },
+    {
+      "id": "dean-male",
+      "description": "Portrait of a male dean or professor",
+      "imageUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzb3IlMjBwb3J0cmFpdHxlbnwwfHx8fDE3MjgxNDU0NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "professor portrait"
+    },
+    {
+      "id": "dean-female",
+      "description": "Portrait of a female dean or professor",
+      "imageUrl": "https://images.unsplash.com/photo-1580894732444-84cf49d5e3f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9mZXNzb3IlMjBwb3J0cmFpdHxlbnwwfHx8fDE3MjgxNDU0NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "professor portrait"
+    }
+  ]
+}

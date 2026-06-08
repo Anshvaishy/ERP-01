@@ -1,0 +1,361 @@
+{
+  "entities": {
+    "University": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "University",
+      "type": "object",
+      "description": "Represents a university with its core information.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the University entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the university."
+        },
+        "tagline": {
+          "type": "string",
+          "description": "The university's tagline or motto."
+        },
+        "about": {
+          "type": "string",
+          "description": "A description providing information about the university."
+        },
+        "contactEmail": {
+          "type": "string",
+          "description": "The contact email address for the university.",
+          "format": "email"
+        },
+        "contactPhone": {
+          "type": "string",
+          "description": "The contact phone number for the university."
+        },
+        "address": {
+          "type": "string",
+          "description": "The physical address of the university."
+        },
+        "socialLinks": {
+          "type": "array",
+          "description": "An array of social media links associated with the university.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "about"
+      ]
+    },
+    "Course": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Course",
+      "type": "object",
+      "description": "Represents a course or department offered by the university.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Course entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the course or department."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description providing details about the course."
+        },
+        "universityId": {
+          "type": "string",
+          "description": "Reference to University. (Relationship: University 1:N Course)"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "universityId"
+      ]
+    },
+    "Student": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Student",
+      "type": "object",
+      "description": "Represents a student enrolled in the university.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Student entity."
+        },
+        "fullName": {
+          "type": "string",
+          "description": "The full name of the student."
+        },
+        "studentId": {
+          "type": "string",
+          "description": "The student's unique identification number."
+        },
+        "email": {
+          "type": "string",
+          "description": "The student's email address.",
+          "format": "email"
+        },
+        "mobileNumber": {
+          "type": "string",
+          "description": "The student's mobile phone number."
+        },
+        "courseId": {
+          "type": "string",
+          "description": "Reference to Course. (Relationship: Course 1:N Student)"
+        },
+        "universityId": {
+          "type": "string",
+          "description": "Reference to University. (Relationship: University 1:N Student)"
+        }
+      },
+      "required": [
+        "id",
+        "fullName",
+        "studentId",
+        "email",
+        "courseId",
+        "universityId"
+      ]
+    },
+    "Announcement": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Announcement",
+      "type": "object",
+      "description": "Represents an announcement or notice for students.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Announcement entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the announcement."
+        },
+        "content": {
+          "type": "string",
+          "description": "The content or message of the announcement."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "The date and time the announcement was created.",
+          "format": "date-time"
+        },
+        "universityId": {
+          "type": "string",
+          "description": "Reference to University. (Relationship: University 1:N Announcement)"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "content",
+        "timestamp",
+        "universityId"
+      ]
+    },
+    "Feedback": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Feedback",
+      "type": "object",
+      "description": "Represents feedback provided by a student.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Feedback entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the person providing feedback."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the person providing feedback.",
+          "format": "email"
+        },
+        "message": {
+          "type": "string",
+          "description": "The feedback message."
+        },
+        "rating": {
+          "type": "number",
+          "description": "A rating given in the feedback (e.g., stars or a numerical value)."
+        },
+        "universityId": {
+          "type": "string",
+          "description": "Reference to University. (Relationship: University 1:N Feedback)"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "message",
+        "universityId"
+      ]
+    },
+    "Statistic": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Statistic",
+      "type": "object",
+      "description": "Represents a statistic about the university (e.g., number of students, faculty, etc.).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Statistic entity."
+        },
+        "label": {
+          "type": "string",
+          "description": "The label or name of the statistic (e.g., 'Students', 'Faculty')."
+        },
+        "value": {
+          "type": "number",
+          "description": "The numerical value of the statistic."
+        },
+        "universityId": {
+          "type": "string",
+          "description": "Reference to University. (Relationship: University 1:N Statistic)"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "value",
+        "universityId"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/universities/{universityId}",
+        "definition": {
+          "entityName": "University",
+          "schema": {
+            "$ref": "#/backend/entities/University"
+          },
+          "description": "Stores university data. Each document represents a university.",
+          "params": [
+            {
+              "name": "universityId",
+              "description": "The unique ID of the university."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/universities/{universityId}/courses/{courseId}",
+        "definition": {
+          "entityName": "Course",
+          "schema": {
+            "$ref": "#/backend/entities/Course"
+          },
+          "description": "Stores course data for each university. Includes denormalized 'universityId' for authorization independence.",
+          "params": [
+            {
+              "name": "universityId",
+              "description": "The unique ID of the university."
+            },
+            {
+              "name": "courseId",
+              "description": "The unique ID of the course."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/universities/{universityId}/students/{studentId}",
+        "definition": {
+          "entityName": "Student",
+          "schema": {
+            "$ref": "#/backend/entities/Student"
+          },
+          "description": "Stores student data for each university. Includes denormalized 'universityId' for authorization independence.",
+          "params": [
+            {
+              "name": "universityId",
+              "description": "The unique ID of the university."
+            },
+            {
+              "name": "studentId",
+              "description": "The unique ID of the student."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/universities/{universityId}/announcements/{announcementId}",
+        "definition": {
+          "entityName": "Announcement",
+          "schema": {
+            "$ref": "#/backend/entities/Announcement"
+          },
+          "description": "Stores announcements for each university. Includes denormalized 'universityId' for authorization independence.",
+          "params": [
+            {
+              "name": "universityId",
+              "description": "The unique ID of the university."
+            },
+            {
+              "name": "announcementId",
+              "description": "The unique ID of the announcement."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/universities/{universityId}/feedback/{feedbackId}",
+        "definition": {
+          "entityName": "Feedback",
+          "schema": {
+            "$ref": "#/backend/entities/Feedback"
+          },
+          "description": "Stores feedback for each university. Includes denormalized 'universityId' for authorization independence.",
+          "params": [
+            {
+              "name": "universityId",
+              "description": "The unique ID of the university."
+            },
+            {
+              "name": "feedbackId",
+              "description": "The unique ID of the feedback."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/universities/{universityId}/statistics/{statisticId}",
+        "definition": {
+          "entityName": "Statistic",
+          "schema": {
+            "$ref": "#/backend/entities/Statistic"
+          },
+          "description": "Stores statistics for each university. Includes denormalized 'universityId' for authorization independence.",
+          "params": [
+            {
+              "name": "universityId",
+              "description": "The unique ID of the university."
+            },
+            {
+              "name": "statisticId",
+              "description": "The unique ID of the statistic."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to store university-related data, including universities, courses, students, announcements, feedback, and statistics. The structure prioritizes path-based ownership and avoids hierarchical authorization dependencies to ensure data integrity and security. The main principle applied here is **Authorization Independence via Denormalization**.\n\n- **Universities:** Stored at the root level in the `universities` collection. This allows easy listing and management of universities.\n- **Courses:** Stored as subcollections under each university (`/universities/{universityId}/courses/{courseId}`). This reflects the one-to-many relationship between universities and courses.\n- **Students:** Stored as subcollections under each university (`/universities/{universityId}/students/{studentId}`). This represents the one-to-many relationship between universities and students. Additionally, `courseId` is included to enable efficient querying of students within a specific course.\n- **Announcements:** Stored as subcollections under each university (`/universities/{universityId}/announcements/{announcementId}`). This allows for university-specific announcements.\n- **Feedback:** Stored as subcollections under each university (`/universities/{universityId}/feedback/{feedbackId}`).  This structure ensures that feedback is associated with the correct university.\n- **Statistics:** Stored as subcollections under each university (`/universities/{universityId}/statistics/{statisticId}`). This allows for easy management and retrieval of university-specific statistics.\n\n**Authorization Independence (CRITICAL):** The structure avoids hierarchical authorization dependencies (`get()`). Each entity contains the `universityId` making it possible to validate security rules without needing to fetch parent data. For example, in the `/universities/{universityId}/courses/{courseId}` collection, checking that the `universityId` matches the `{universityId}` parameter ensures that the user has access to the parent university. This also applies to students, announcements, feedback, and statistics.\n\n**QAPs (Rules are not Filters):** The structure enables secure `list` operations. By segregating data based on university ID, it's possible to create security rules that only allow listing of resources associated with a specific university, preventing unauthorized access to data from other universities.\n\n**Structural Segregation (Homogeneous Security Posture):** The data is segregated based on entity type (universities, courses, students, etc.) and each university has its own subcollections. This ensures that all documents within a collection or subcollection share the same security requirements, simplifying the security rules."
+  }
+}

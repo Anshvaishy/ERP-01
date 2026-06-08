@@ -1,0 +1,704 @@
+diff --git a/node_modules/next-themes/package.json b/node_modules/next-themes/package.json
+index 1787c17..b912f27 100644
+--- a/node_modules/next-themes/package.json
++++ b/node_modules/next-themes/package.json
+@@ -37,7 +37,7 @@
+   "peerDependencies": {
+     "next": ">=9",
+-    "react": "^16.8 || ^17 || ^18",
+-    "react-dom": "^16.8 || ^17 || ^18"
++    "react": "^16.8 || ^17 || ^18 || ^19",
++    "react-dom": "^16.8 || ^17 || ^18 || ^19"
+   },
+   "dependencies": {},
+   "devDependencies": {
+diff --git a/node_modules/next-themes/dist/index.js b/node_modules/next-themes/dist/index.js
+index 7a57a1f..a23f1a6 100644
+--- a/node_modules/next-themes/dist/index.js
++++ b/node_modules/next-themes/dist/index.js
+@@ -1,8 +1,8 @@
+ 'use client';
+ "use strict";
+-var __create = Object.create;
+-var __defProp = Object.defineProperty;
+-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+-var __getOwnPropNames = Object.getOwnPropertyNames;
+-var __getProtoOf = Object.getPrototypeOf;
+-var __hasOwnProp = Object.prototype.hasOwnProperty;
+-var __export = (target, all) => {
+-  for (var name in all)
+-    __defProp(target, name, { get: all[name], enumerable: true });
+-};
+-var __copyProps = (to, from, except, desc) => {
+-  if (from && typeof from === "object" || typeof from === "function") {
+-    for (let key of __getOwnPropNames(from))
+-      if (!__hasOwnProp.call(to, key) && key !== except)
+-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+-  }
+-  return to;
+-};
+-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+-  // If the importer is in node compatibility mode or this is not an ESM
+-  // file that has been converted to a CommonJS file using a Babel-
+-  // compatible transform (i.e. "__esModule" has not been set), then set
+-  // "default" to the CommonJS "module.exports" for node compatibility.
+-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+-  mod
+-));
+-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
++var __create = Object.create
++var __defProp = Object.defineProperty
++var __getOwnPropDesc = Object.getOwnPropertyDescriptor
++var __getOwnPropNames = Object.getOwnPropertyNames
++var __getProtoOf = Object.getPrototypeOf
++var __hasOwnProp = Object.prototype.hasOwnProperty
++var __export = (target, all) => {
++  for (var name in all) __defProp(target, name, { get: all[name], enumerable: true })
++}
++var __copyProps = (to, from, except, desc) => {
++  if ((from && typeof from === 'object') || typeof from === 'function') {
++    for (let key of __getOwnPropNames(from))
++      if (!__hasOwnProp.call(to, key) && key !== except)
++        __defProp(to, key, {
++          get: () => from[key],
++          enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable
++        })
++  }
++  return to
++}
++var __toESM = (mod, isNodeMode, target) => (
++  (target = mod != null ? __create(__getProtoOf(mod)) : {}),
++  __copyProps(
++    // If the importer is in node compatibility mode or this is not an ESM
++    // file that has been converted to a CommonJS file using a Babel-
++    // compatible transform (i.e. "__esModule" has not been set), then set
++    // "default" to the CommonJS "module.exports" for node compatibility.
++    isNodeMode || !mod || !mod.__esModule
++      ? __defProp(target, 'default', { value: mod, enumerable: true })
++      : target,
++    mod
++  )
++)
++var __toCommonJS = (mod) => __copyProps(__defProp({}, '__esModule', { value: true }), mod)
+ 
+-var src_exports = {};
+-__export(src_exports, {
+-  ThemeProvider: () => ThemeProvider,
+-  useTheme: () => useTheme
+-});
+-module.exports = __toCommonJS(src_exports);
+-var React = __toESM(require("react"));
+-var import_react = require("react");
+-var import_react_dom = require("react-dom");
+-var defaultContext = {
+-  setTheme: (_) => {
+-  },
+-  themes: []
+-};
+-var ThemeContext = (0, import_react.createContext)(defaultContext);
+-var useTheme = () => (0, import_react.useContext)(ThemeContext);
+-var STORAGE_KEY = "theme";
+-var colorSchemes = ["light", "dark"];
+-var MEDIA = "(prefers-color-scheme: dark)";
+-var getTheme = (key, fallback) => {
+-  if (typeof window === "undefined")
+-    return void 0;
+-  let theme;
+-  try {
+-    theme = localStorage.getItem(key) || void 0;
+-  } catch (e) {
+-  }
+-  return theme || fallback;
+-};
+-var applyTheme = (theme) => {
+-  let resolved;
+-  if (theme === "system") {
+-    resolved = window.matchMedia(MEDIA).matches ? "dark" : "light";
+-  } else {
+-    resolved = theme;
+-  }
+-  const d = document.documentElement;
+-  if (resolved) {
+-    d.classList.remove(...colorSchemes);
+-    d.classList.add(resolved);
+-  }
+-  d.style.colorScheme = resolved || "";
+-};
+-var ThemeProvider = (props) => {
+-  const {
+-    forcedTheme,
+-    disableTransitionOnChange = false,
+-    enableSystem = true,
+-    enableColorScheme = true,
+-    storageKey = STORAGE_KEY,
+-    themes = ["light", "dark"],
+-    defaultTheme = enableSystem ? "system" : "light",
+-    attribute = "class",
+-    value,
+-    children,
+-    nonce
+-  } = props;
+-  const [theme, setThemeState] = (0, import_react.useState)(() => getTheme(storageKey, defaultTheme));
+-  const [resolvedTheme, setResolvedTheme] = (0, import_react.useState)(() => getTheme(storageKey));
+-  const attrs = !value ? themes : Object.values(value);
+-  const handleMediaQuery = (0, import_react.useCallback)(
+-    (e) => {
+-      const resolved = window.matchMedia(MEDIA).matches ? "dark" : "light";
+-      setResolvedTheme(resolved);
+-      if (theme === "system" || !theme) {
+-        applyTheme("system");
+-      }
+-    },
+-    [theme]
+-  );
+-  (0, import_react.useEffect)(() => {
+-    const mediaQuery = window.matchMedia(MEDIA);
+-    mediaQuery.addListener(handleMediaQuery);
+-    handleMediaQuery(mediaQuery);
+-    return () => mediaQuery.removeListener(handleMediaQuery);
+-  }, [handleMediaQuery]);
+-  const setTheme = (0, import_react.useCallback)((newTheme) => {
+-    try {
+-      localStorage.setItem(storageKey, newTheme);
+-    } catch (e) {
+-    }
+-    setThemeState(newTheme);
+-  }, []);
+-  (0, import_react.useEffect)(() => {
+-    applyTheme(forcedTheme ? forcedTheme : theme);
+-  }, [theme, forcedTheme]);
+-  const providerValue = (0, import_react.useMemo)(
+-    () => ({
+-      theme,
+-      setTheme,
+-      forcedTheme,
+-      resolvedTheme: theme === "system" ? resolvedTheme : theme,
+-      themes: enableSystem ? [...themes, "system"] : themes,
+-      systemTheme: enableSystem ? resolvedTheme : void 0
+-    }),
+-    [theme, setTheme, forcedTheme, resolvedTheme, enableSystem, themes]
+-  );
+-  return /* @__PURE__ */ React.createElement(ThemeContext.Provider, { value: providerValue }, /* @__PURE__ */ React.createElement(ThemeScript, { ...{
+-    forcedTheme,
+-    storageKey,
+-    attribute,
+-    enableSystem,
+-    enableColorScheme,
+-    defaultTheme,
+-    value,
+-    attrs,
+-    nonce
+-  } }), children);
+-};
+-var ThemeScript = (0, import_react.memo)(
+-  ({
+-    forcedTheme,
+-    storageKey,
+-    attribute,
+-    enableSystem,
+-    enableColorScheme,
+-    defaultTheme,
+-    value,
+-    attrs,
+-    nonce
+-  }) => {
+-    const [isClient, setIsClient] = (0, import_react.useState)(false);
+-    (0, import_react.useEffect)(() => {
+-      setIsClient(true);
+-    }, []);
+-    const css = attribute === "class" ? `var d=document.documentElement,c=d.classList;c.remove(${attrs.map((t) => `'${t}'`).join(",")});c.add(t);` : `var d=document.documentElement;d.setAttribute('${attribute}',t);`;
+-    const updateDOM = `var t;try{t=localStorage.getItem('${storageKey}')||'${defaultTheme}'}catch(e){}if(t==='system'||(!t&&${enableSystem})){var e=window.matchMedia('${MEDIA}');t=e.matches?'dark':'light'}if(t){${css}}`;
+-    const script = forcedTheme ? `!function(){${css.replace("t", `'${forcedTheme}'`)}}()` : enableSystem ? `!function(){try{${updateDOM}}catch(e){}}()` : `!function(){var t;try{t=localStorage.getItem("${storageKey}")}catch(e){}if(t){${css}}}()`;
+-    const colorScheme = enableColorScheme ? `if(t==='light'||t==='dark'){d.style.colorScheme=t}` : "";
+-    const systemColorMeta = `var e=window.matchMedia('${MEDIA}');d.style.colorScheme=e.matches?'dark':'light'`;
+-    const forcedColorScheme = forcedTheme ? `d.style.colorScheme='${forcedTheme}'` : systemColorMeta;
+-    const colorSchemeScript = `!function(){var d=document.documentElement,t;try{t=localStorage.getItem("${storageKey}")}catch(e){}if(t==='system'||(!t&&${enableSystem})){${forcedColorScheme}}else if(t){${colorScheme}}else{${enableSystem ? systemColorMeta : ""}}}()`;
+-    return isClient ? null : /* @__PURE__ */ React.createElement(React.Fragment, null, enableColorScheme && /* @__PURE__ */ React.createElement("script", { nonce, dangerouslySetInnerHTML: { __html: colorSchemeScript } }), /* @__PURE__ */ React.createElement("script", { nonce, dangerouslySetInnerHTML: { __html: script } }));
+-  },
+-  (prevProps, nextProps) => {
+-    if (prevProps.forcedTheme) {
+-      return true;
+-_AUTO_GENERATED_BY_FIREBASE_STUDIO_
+-    }
+-    return false;
+-  }
+-);
+-
++var src_exports = {}
++__export(src_exports, {
++  ThemeProvider: () => ThemeProvider,
++  useTheme: () => useTheme
++})
++module.exports = __toCommonJS(src_exports)
++var React = __toESM(require('react'))
++var import_react = require('react')
++const defaultContext = {
++  setTheme: (_) => {},
++  themes: []
++}
++const ThemeContext = (0, import_react.createContext)(defaultContext)
++const useTheme = () => (0, import_react.useContext)(ThemeContext)
++var STORAGE_KEY = 'theme'
++var colorSchemes = ['light', 'dark']
++var MEDIA = '(prefers-color-scheme: dark)'
++var getTheme = (key, fallback) => {
++  if (typeof window === 'undefined') return
++  let theme
++  try {
++    theme = localStorage.getItem(key) || void 0
++  } catch (e) {
++    // Unsupported
++  }
++  return theme || fallback
++}
++var applyTheme = (theme) => {
++  let resolved
++  if (theme === 'system') {
++    resolved = window.matchMedia(MEDIA).matches ? 'dark' : 'light'
++  } else {
++    resolved = theme
++  }
++  const d = document.documentElement
++  if (resolved) {
++    d.classList.remove(...colorSchemes)
++    d.classList.add(resolved)
++  }
++  d.style.colorScheme = resolved || ''
++}
++var ThemeProvider = (props) => {
++  const {
++    forcedTheme,
++    disableTransitionOnChange = false,
++    enableSystem = true,
++    enableColorScheme = true,
++    storageKey = STORAGE_KEY,
++    themes = ['light', 'dark'],
++    defaultTheme = enableSystem ? 'system' : 'light',
++    attribute = 'class',
++    value,
++    children,
++    nonce
++  } = props
++  const [theme, setThemeState] = (0, import_react.useState)(() =>
++    getTheme(storageKey, defaultTheme)
++  )
++  const [resolvedTheme, setResolvedTheme] = (0, import_react.useState)(() => getTheme(storageKey))
++  const attrs = !value ? themes : Object.values(value)
++  const handleMediaQuery = (0, import_react.useCallback)(
++    (e) => {
++      const resolved = window.matchMedia(MEDIA).matches ? 'dark' : 'light'
++      setResolvedTheme(resolved)
++      if (theme === 'system' || !theme) {
++        applyTheme('system')
++      }
++    },
++    [theme]
++  )
++  ;(0, import_react.useEffect)(() => {
++    const mediaQuery = window.matchMedia(MEDIA)
++    mediaQuery.addListener(handleMediaQuery)
++    handleMediaQuery(mediaQuery)
++    return () => mediaQuery.removeListener(handleMediaQuery)
++  }, [handleMediaQuery])
++  const setTheme = (0, import_react.useCallback)(
++    (newTheme) => {
++      try {
++        localStorage.setItem(storageKey, newTheme)
++      } catch (e) {
++        // Unsupported
++      }
++      setThemeState(newTheme)
++    },
++    [storageKey]
++  )
++  ;(0, import_react.useEffect)(() => {
++    applyTheme(forcedTheme ? forcedTheme : theme)
++  }, [theme, forcedTheme])
++  const providerValue = (0, import_react.useMemo)(
++    () => ({
++      theme,
++      setTheme,
++      forcedTheme,
++      resolvedTheme: theme === 'system' ? resolvedTheme : theme,
++      themes: enableSystem ? [...themes, 'system'] : themes,
++      systemTheme: enableSystem ? resolvedTheme : void 0
++    }),
++    [theme, setTheme, forcedTheme, resolvedTheme, enableSystem, themes]
++  )
++  return /* @__PURE__ */ React.createElement(
++    ThemeContext.Provider,
++    { value: providerValue },
++    /* @__PURE__ */ React.createElement(ThemeScript, {
++      ...{
++        forcedTheme,
++        storageKey,
++        attribute,
++        enableSystem,
++        enableColorScheme,
++        defaultTheme,
++        value,
++        attrs,
++        nonce
++      }
++    }),
++    children
++  )
++}
++var ThemeScript = (0, import_react.memo)(
++  ({
++    forcedTheme,
++    storageKey,
++    attribute,
++    enableSystem,
++    enableColorScheme,
++    defaultTheme,
++    value,
++    attrs,
++    nonce
++  }) => {
++    const css =
++      attribute === 'class'
++        ? `var d=document.documentElement,c=d.classList;c.remove(${attrs.map((t) => `'${t}'`).join(',')});c.add(t);`
++        : `var d=document.documentElement;d.setAttribute('${attribute}',t);`
++    const updateDOM = `var t;try{t=localStorage.getItem('${storageKey}')||'${defaultTheme}'}catch(e){}if(t==='system'||(!t&&${enableSystem})){var e=window.matchMedia('${MEDIA}');t=e.matches?'dark':'light'}if(t){${css}}`
++    const script = forcedTheme
++      ? `!function(){${css.replace("t", `'${forcedTheme}'`)}}()`
++      : enableSystem
++        ? `!function(){try{${updateDOM}}catch(e){}}()`
++        : `!function(){var t;try{t=localStorage.getItem("${storageKey}")}catch(e){}if(t){${css}}}()`
++    const colorScheme =
++      enableColorScheme ? `if(t==='light'||t==='dark'){d.style.colorScheme=t}` : ''
++    const systemColorMeta = `var e=window.matchMedia('${MEDIA}');d.style.colorScheme=e.matches?'dark':'light'`
++    const forcedColorScheme = forcedTheme ? `d.style.colorScheme='${forcedTheme}'` : systemColorMeta
++    const colorSchemeScript = `!function(){var d=document.documentElement,t;try{t=localStorage.getItem("${storageKey}")}catch(e){}if(t==='system'||(!t&&${enableSystem})){${forcedColorScheme}}else if(t){${colorScheme}}else{${enableSystem ? systemColorMeta : ''}}}()`
++    return /* @__PURE__ */ React.createElement(
++      React.Fragment,
++      null,
++      enableColorScheme &&
++        /* @__PURE__ */ React.createElement('script', {
++          nonce,
++          dangerouslySetInnerHTML: { __html: colorSchemeScript }
++        }),
++      /* @__PURE__ */ React.createElement('script', {
++        nonce,
++        dangerouslySetInnerHTML: { __html: script }
++      })
++    )
++  },
++  (prevProps, nextProps) => {
++    if (prevProps.forcedTheme) {
++      return true
++    }
++    return false
++  }
++)
++0 && (module.exports = {
++  ThemeProvider,
++  useTheme
++});
+diff --git a/node_modules/next-themes/dist/index.mjs b/node_modules/next-themes/dist/index.mjs
+index 9e0fd99..41a50a1 100644
+--- a/node_modules/next-themes/dist/index.mjs
++++ b/node_modules/next-themes/dist/index.mjs
+@@ -1,9 +1,8 @@
+ 'use client';
+-import * as React from "react";
+-import { createContext, useContext, useState, useCallback, useEffect, useMemo, memo } from "react";
+-import { renderToStaticMarkup } from "react-dom/server";
+-var defaultContext = {
+-  setTheme: (_) => {
+-  },
+-  themes: []
+-};
+-var ThemeContext = createContext(defaultContext);
+-var useTheme = () => useContext(ThemeContext);
+-var STORAGE_KEY = "theme";
+-var colorSchemes = ["light", "dark"];
+-var MEDIA = "(prefers-color-scheme: dark)";
+-var getTheme = (key, fallback) => {
+-  if (typeof window === "undefined")
+-    return void 0;
+-  let theme;
+-  try {
+-    theme = localStorage.getItem(key) || void 0;
+-  } catch (e) {
+-  }
+-  return theme || fallback;
+-};
+-var applyTheme = (theme) => {
+-  let resolved;
+-  if (theme === "system") {
+-    resolved = window.matchMedia(MEDIA).matches ? "dark" : "light";
+-  } else {
+-    resolved = theme;
+-  }
+-  const d = document.documentElement;
+-  if (resolved) {
+-    d.classList.remove(...colorSchemes);
+-    d.classList.add(resolved);
+-  }
+-  d.style.colorScheme = resolved || "";
+-};
+-var ThemeProvider = (props) => {
+-  const {
+-    forcedTheme,
+-    disableTransitionOnChange = false,
+-    enableSystem = true,
+-    enableColorScheme = true,
+-    storageKey = STORAGE_KEY,
+-    themes = ["light", "dark"],
+-    defaultTheme = enableSystem ? "system" : "light",
+-    attribute = "class",
+-    value,
+-    children,
+-    nonce
+-  } = props;
+-  const [theme, setThemeState] = useState(() => getTheme(storageKey, defaultTheme));
+-  const [resolvedTheme, setResolvedTheme] = useState(() => getTheme(storageKey));
+-  const attrs = !value ? themes : Object.values(value);
+-  const handleMediaQuery = useCallback(
+-    (e) => {
+-      const resolved = window.matchMedia(MEDIA).matches ? "dark" : "light";
+-      setResolvedTheme(resolved);
+-      if (theme === "system" || !theme) {
+-        applyTheme("system");
+-      }
+-    },
+-    [theme]
+-  );
+-  useEffect(() => {
+-    const mediaQuery = window.matchMedia(MEDIA);
+-    mediaQuery.addListener(handleMediaQuery);
+-    handleMediaQuery(mediaQuery);
+-    return () => mediaQuery.removeListener(handleMediaQuery);
+-  }, [handleMediaQuery]);
+-  const setTheme = useCallback((newTheme) => {
+-    try {
+-      localStorage.setItem(storageKey, newTheme);
+-    } catch (e) {
+-    }
+-    setThemeState(newTheme);
+-  }, []);
+-  useEffect(() => {
+-    applyTheme(forcedTheme ? forcedTheme : theme);
+-  }, [theme, forcedTheme]);
+-  const providerValue = useMemo(
+-    () => ({
+-      theme,
+-      setTheme,
+-      forcedTheme,
+-      resolvedTheme: theme === "system" ? resolvedTheme : theme,
+-      themes: enableSystem ? [...themes, "system"] : themes,
+-      systemTheme: enableSystem ? resolvedTheme : void 0
+-    }),
+-    [theme, setTheme, forcedTheme, resolvedTheme, enableSystem, themes]
+-  );
+-  return /* @__PURE__ */ React.createElement(ThemeContext.Provider, { value: providerValue }, /* @__PURE__ */ React.createElement(ThemeScript, { ...{
+-    forcedTheme,
+-    storageKey,
+-    attribute,
+-    enableSystem,
+-    enableColorScheme,
+-    defaultTheme,
+-    value,
+-    attrs,
+-    nonce
+-  } }), children);
+-};
+-var ThemeScript = memo(
+-  ({
+-    forcedTheme,
+-    storageKey,
+-    attribute,
+-    enableSystem,
+-    enableColorScheme,
+-    defaultTheme,
+-    value,
+-    attrs,
+-    nonce
+-  }) => {
+-    const [isClient, setIsClient] = useState(false);
+-    useEffect(() => {
+-      setIsClient(true);
+-    }, []);
+-    const css = attribute === "class" ? `var d=document.documentElement,c=d.classList;c.remove(${attrs.map((t) => `'${t}'`).join(",")});c.add(t);` : `var d=document.documentElement;d.setAttribute('${attribute}',t);`;
+-    const updateDOM = `var t;try{t=localStorage.getItem('${storageKey}')||'${defaultTheme}'}catch(e){}if(t==='system'||(!t&&${enableSystem})){var e=window.matchMedia('${MEDIA}');t=e.matches?'dark':'light'}if(t){${css}}`;
+-    const script = forcedTheme ? `!function(){${css.replace("t", `'${forcedTheme}'`)}}()` : enableSystem ? `!function(){try{${updateDOM}}catch(e){}}()` : `!function(){var t;try{t=localStorage.getItem("${storageKey}")}catch(e){}if(t){${css}}}()`;
+-    const colorScheme = enableColorScheme ? `if(t==='light'||t==='dark'){d.style.colorScheme=t}` : "";
+-    const systemColorMeta = `var e=window.matchMedia('${MEDIA}');d.style.colorScheme=e.matches?'dark':'light'`;
+-    const forcedColorScheme = forcedTheme ? `d.style.colorScheme='${forcedTheme}'` : systemColorMeta;
+-    const colorSchemeScript = `!function(){var d=document.documentElement,t;try{t=localStorage.getItem("${storageKey}")}catch(e){}if(t==='system'||(!t&&${enableSystem})){${forcedColorScheme}}else if(t){${colorScheme}}else{${enableSystem ? systemColorMeta : ""}}}()`;
+-    return isClient ? null : /* @__PURE__ */ React.createElement(React.Fragment, null, enableColorScheme && /* @__PURE__ */ React.createElement("script", { nonce, dangerouslySetInnerHTML: { __html: colorSchemeScript } }), /* @__PURE__ */ React.createElement("script", { nonce, dangerouslySetInnerHTML: { __html: script } }));
+-  },
+-  (prevProps, nextProps) => {
+-    if (prevProps.forcedTheme) {
+-      return true;
+-    }
+-    return false;
+-  }
+-);
+-export {
+-  ThemeProvider,
+-  useTheme
+-};
++import * as React from 'react'
++import { createContext, useContext, useState, useCallback, useEffect, useMemo, memo } from 'react'
++const defaultContext = {
++  setTheme: (_) => {},
++  themes: []
++}
++const ThemeContext = createContext(defaultContext)
++const useTheme = () => useContext(ThemeContext)
++var STORAGE_KEY = 'theme'
++var colorSchemes = ['light', 'dark']
++var MEDIA = '(prefers-color-scheme: dark)'
++var getTheme = (key, fallback) => {
++  if (typeof window === 'undefined') return
++  let theme
++  try {
++    theme = localStorage.getItem(key) || void 0
++  } catch (e) {
++    // Unsupported
++  }
++  return theme || fallback
++}
++var applyTheme = (theme) => {
++  let resolved
++  if (theme === 'system') {
++    resolved = window.matchMedia(MEDIA).matches ? 'dark' : 'light'
++  } else {
++    resolved = theme
++  }
++  const d = document.documentElement
++  if (resolved) {
++    d.classList.remove(...colorSchemes)
++    d.classList.add(resolved)
++  }
++  d.style.colorScheme = resolved || ''
++}
++var ThemeProvider = (props) => {
++  const {
++    forcedTheme,
++    disableTransitionOnChange = false,
++    enableSystem = true,
++    enableColorScheme = true,
++    storageKey = STORAGE_KEY,
++    themes = ['light', 'dark'],
++    defaultTheme = enableSystem ? 'system' : 'light',
++    attribute = 'class',
++    value,
++    children,
++    nonce
++  } = props
++  const [theme, setThemeState] = useState(() => getTheme(storageKey, defaultTheme))
++  const [resolvedTheme, setResolvedTheme] = useState(() => getTheme(storageKey))
++  const attrs = !value ? themes : Object.values(value)
++  const handleMediaQuery = useCallback(
++    (e) => {
++      const resolved = window.matchMedia(MEDIA).matches ? 'dark' : 'light'
++      setResolvedTheme(resolved)
++      if (theme === 'system' || !theme) {
++        applyTheme('system')
++      }
++    },
++    [theme]
++  )
++  useEffect(() => {
++    const mediaQuery = window.matchMedia(MEDIA)
++    mediaQuery.addListener(handleMediaQuery)
++    handleMediaQuery(mediaQuery)
++    return () => mediaQuery.removeListener(handleMediaQuery)
++  }, [handleMediaQuery])
++  const setTheme = useCallback(
++    (newTheme) => {
++      try {
++        localStorage.setItem(storageKey, newTheme)
++      } catch (e) {
++        // Unsupported
++      }
++      setThemeState(newTheme)
++    },
++    [storageKey]
++  )
++  useEffect(() => {
++    applyTheme(forcedTheme ? forcedTheme : theme)
++  }, [theme, forcedTheme])
++  const providerValue = useMemo(
++    () => ({
++      theme,
++      setTheme,
++      forcedTheme,
++      resolvedTheme: theme === 'system' ? resolvedTheme : theme,
++      themes: enableSystem ? [...themes, 'system'] : themes,
++      systemTheme: enableSystem ? resolvedTheme : void 0
++    }),
++    [theme, setTheme, forcedTheme, resolvedTheme, enableSystem, themes]
++  )
++  return /* @__PURE__ */ React.createElement(
++    ThemeContext.Provider,
++    { value: providerValue },
++    /* @__PURE__ */ React.createElement(ThemeScript, {
++      ...{
++        forcedTheme,
++        storageKey,
++        attribute,
++        enableSystem,
++        enableColorScheme,
++        defaultTheme,
++        value,
++        attrs,
++        nonce
++      }
++    }),
++    children
++  )
++}
++var ThemeScript = memo(
++  ({
++    forcedTheme,
++    storageKey,
++    attribute,
++    enableSystem,
++    enableColorScheme,
++    defaultTheme,
++    value,
++    attrs,
++    nonce
++  }) => {
++    const css =
++      attribute === 'class'
++        ? `var d=document.documentElement,c=d.classList;c.remove(${attrs.map((t) => `'${t}'`).join(',')});c.add(t);`
++        : `var d=document.documentElement;d.setAttribute('${attribute}',t);`
++    const updateDOM = `var t;try{t=localStorage.getItem('${storageKey}')||'${defaultTheme}'}catch(e){}if(t==='system'||(!t&&${enableSystem})){var e=window.matchMedia('${MEDIA}');t=e.matches?'dark':'light'}if(t){${css}}`
++    const script = forcedTheme
++      ? `!function(){${css.replace("t", `'${forcedTheme}'`)}}()`
++      : enableSystem
++        ? `!function(){try{${updateDOM}}catch(e){}}()`
++        : `!function(){var t;try{t=localStorage.getItem("${storageKey}")}catch(e){}if(t){${css}}}()`
++    const colorScheme =
++      enableColorScheme ? `if(t==='light'||t==='dark'){d.style.colorScheme=t}` : ''
++    const systemColorMeta = `var e=window.matchMedia('${MEDIA}');d.style.colorScheme=e.matches?'dark':'light'`
++    const forcedColorScheme = forcedTheme ? `d.style.colorScheme='${forcedTheme}'` : systemColorMeta
++    const colorSchemeScript = `!function(){var d=document.documentElement,t;try{t=localStorage.getItem("${storageKey}")}catch(e){}if(t==='system'||(!t&&${enableSystem})){${forcedColorScheme}}else if(t){${colorScheme}}else{${enableSystem ? systemColorMeta : ''}}}()`
++    return /* @__PURE__ */ React.createElement(
++      React.Fragment,
++      null,
++      enableColorScheme &&
++        /* @__PURE__ */ React.createElement('script', {
++          nonce,
++          dangerouslySetInnerHTML: { __html: colorSchemeScript }
++        }),
++      /* @__PURE__ */ React.createElement('script', {
++        nonce,
++        dangerouslySetInnerHTML: { __html: script }
++      })
++    )
++  },
++  (prevProps, nextProps) => {
++    if (prevProps.forcedTheme) {
++      return true
++    }
++    return false
++  }
++)
++export { ThemeProvider, useTheme }
